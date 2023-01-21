@@ -4,7 +4,7 @@
 
   export let game: FootballGame;
 
-  export const awayScore = game.Score.AwayScore ?? `${Number(game.Game?.PointSpread) > 0 ? `+${game.Score.PointSpread}` : game.Game?.PointSpread ?? '-'}`;
+  export const awayScore = game.Score.AwayScore ?? `${game.Score.PointSpread > 0 ? `+${game.Score.PointSpread}` : game.Score.PointSpread ?? '-'}`;
   export const homeScore = game.Score.HomeScore ?? `${game.Score.OverUnder ? 'o' + game.Score.OverUnder : '-'}`;
 </script>
 

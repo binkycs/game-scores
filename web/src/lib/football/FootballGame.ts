@@ -98,7 +98,7 @@ export interface Game {
   HomeScore: number
   TotalScore: number
   OverUnder: string
-  PointSpread: string
+  PointSpread: number
   AwayScoreQuarter1: number
   AwayScoreQuarter2: number
   AwayScoreQuarter3: number
@@ -307,7 +307,7 @@ export interface Score {
   AwayScore?: number
   HomeScore?: number
   Channel: string
-  PointSpread: string
+  PointSpread: number
   OverUnder: string
   Quarter?: string
   TimeRemaining?: string

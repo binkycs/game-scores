@@ -29,7 +29,8 @@ export async function fetchNcaabGames(): Promise<BasketballGame[]> {
 }
 
 async function fetchGames(sport: string) {
-	const date = dev ? '2023-01-15' : getTodaysDateString();
+	// const date = dev ? '2023-01-15' : getTodaysDateString();
+	const date = getTodaysDateString();
 	const response = await fetch(`${url}/games/${sport}/${date}`);
 	return response.json();
 }
