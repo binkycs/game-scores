@@ -1,0 +1,114 @@
+<script lang="ts">
+  import type { FootballGame, Defense, Team } from "$lib/football/footballgame";
+
+  class TeamDefense {
+    Team: Team;
+    Stats: Defense[];
+    constructor(public team: Team, public stats: Defense[]) {
+      this.Team = team;
+      this.Stats = stats.sort((a, b) => b.Tackles - a.Tackles);
+    }
+  }
+
+  let count = 0;
+  function increment() {
+    return count++;
+  }
+
+  export let game: FootballGame;
+
+  const teams = [new TeamDefense(game.AwayTeam, game.AwayDefense), new TeamDefense(game.HomeTeam, game.HomeDefense)];
+</script>
+
+<div class="container">
+  {#each teams as team}
+    <div class="w-full">
+      <div class="team-title mt-10">
+        <img alt="{team.Team.Name}" src="{team.Team.WikipediaLogoUrl}" class="image" />
+        <div class="font-extrabold">{team.Team.City} Defense</div>
+      </div>
+
+      <div class="divider mb-0 mt-0"></div>
+
+      <div class="stats-left flex">
+        <table class="table table-compact min-w-[160px] max-w-[160px]">
+          <thead>
+            <tr>
+              <th>Players</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each team.Stats as player}
+            <tr class="active">
+              <td>{player.Name}</td>
+            </tr>
+            {/each}
+          </tbody>
+        </table>
+
+        <div class="divider divider-horizontal ml-2 mr-2"></div>
+
+        <table class="table table-compact w-full player-stats">
+          <thead>
+            <tr>
+              <th>TOTAL</th>
+              <th>SOLO</th>
+              <th>SACK</th>
+              <th>INT</th>
+              <th>YDS</th>
+              <th>TD</th>
+              <th>PD</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each team.Stats as player}
+              <tr class="active">
+                <td>{player.Tackles}</td>
+                <td>{player.SoloTackles}</td>
+                <td>{player.Sacks}</td>
+                <td>{player.Interceptions}</td>
+                <td>{player.InterceptionReturnYards}</td>
+                <td>{player.FumbleReturnTouchdowns + player.InterceptionReturnTouchdowns}</td>
+                <td>{player.PassesDefended}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+    {#if increment() < 1}
+      <div class="divider divider-horizontal"></div>
+    {/if}
+  {/each}
+</div>
+
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.2rem;
+  }
+  @media (max-width: 1124px) {
+    .container {
+      flex-direction: column;
+      row-gap: 0.4rem;
+    }
+  }
+  .team-title {
+    display: flex;
+    align-items: center;
+  }
+  .image {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px!important;
+  }
+  .player-stats :where(td, th) {
+    text-align: center;
+  }
+  th {
+    font-size: 12px;
+  }
+</style>
