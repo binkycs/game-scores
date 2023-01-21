@@ -12,8 +12,6 @@ static class Global
 
 		var settings = MongoClientSettings.FromConnectionString(Environment.GetEnvironmentVariable("MONGODB_URI"));
 
-		settings.MinConnectionPoolSize = 5000;
-
 		Client = new MongoClient(settings);
 	}
 
